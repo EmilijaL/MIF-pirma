@@ -56,14 +56,16 @@
       <version>1.0.0</version>
     </dependency>
     <dependency>
-      <groupId>org.omnifaces</groupId>
-      <artifactId>omnifaces</artifactId>
-      <version>2.0</version>
-    </dependency>
+
+    <groupId>org.omnifaces</groupId>
+    <artifactId>omnifaces</artifactId>
+    <version>2.0</version>
+  </dependency>
   </dependencies>
 
   <build>
-    <finalName>MIF</finalName>
+    <finalName>VU</finalName>
+
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
