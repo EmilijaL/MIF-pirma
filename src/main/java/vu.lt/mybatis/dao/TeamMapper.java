@@ -1,8 +1,7 @@
 package vu.lt.mybatis.dao;
-
+import vu.lt.mybatis.model.Team;
 import java.util.List;
 import org.mybatis.cdi.Mapper;
-import vu.lt.mybatis.model.Team;
 
 
 @Mapper
