@@ -9,7 +9,7 @@
 <h:body>
     <h2>Teams:</h2>
     <ol>
-        <ui:repeat value="#{teamsMyBatis.allTeams}" var="team">
+        <ui:repeat value="#{teams.allTeams}" var="team">
             <li><h:link value="#{team.name}" outcome="players?teamId=#{team.id}" /></li>
 
         </ui:repeat>
@@ -18,6 +18,7 @@
         <h:inputText value="#{teams.teamToCreate.name}" required="true" />
         <h:commandButton value="Add new team" action="#{teams.createTeam}" />
     </h:form>
+    <h:link outcome="myBatis/teams" value="MyBatis implementation"/>
 
     <h2>Games:</h2>
     <ol>
