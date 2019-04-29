@@ -19,4 +19,12 @@ public class PlayersDAO {
     public void persist(Player player){
         this.em.persist(player);
     }
+
+    public Player findOne(Integer id){
+        return em.find(Player.class, id);
+    }
+
+    public Player update(Player player){
+        return em.merge(player);
+    }
 }

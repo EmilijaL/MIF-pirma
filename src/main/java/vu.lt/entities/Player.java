@@ -26,6 +26,9 @@ public class Player implements Serializable {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "JERSEY_NUMBER")
+    private Integer jerseyNumber;
+
     @ManyToOne
     @JoinColumn(name="TEAM_ID")
     private Team team;
@@ -33,6 +36,10 @@ public class Player implements Serializable {
     @ManyToMany
     @JoinTable(name = "PLAYER_GAME")
     private List<Game> games = new ArrayList<>();
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
 
 
     public Player() {
