@@ -9,9 +9,8 @@
 <h:body>
     <h2>Teams:</h2>
     <ol>
-        <ui:repeat value="#{teamsMyBatis.allTeams}" var="team">
+        <ui:repeat value="#{teams.allTeams}" var="team">
             <li><h:link value="#{team.name}" outcome="players?teamId=#{team.id}" /></li>
-
         </ui:repeat>
     </ol>
     <h:form>
