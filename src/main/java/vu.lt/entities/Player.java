@@ -29,6 +29,9 @@ public class Player implements Serializable {
     @Column(name = "JERSEY_NUMBER")
     private Integer jerseyNumber;
 
+    @Column(name = "LEVEL")
+    private String level;
+
     @ManyToOne
     @JoinColumn(name="TEAM_ID")
     private Team team;

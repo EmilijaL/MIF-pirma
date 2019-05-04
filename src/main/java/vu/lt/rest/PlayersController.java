@@ -38,25 +38,56 @@ public class PlayersController {
 
         return Response.ok(playerDto).build();
     }
+//    @Path("/{id}")
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Transactional
+//    public Response update(
+//            @PathParam("id") final Integer playerId,
+//            PlayerDto playerData) {
+//        try {
+//            Player existingPlayer = playersDAO.findOne(playerId);
+//            if (existingPlayer == null) {
+//                return Response.status(Response.Status.NOT_FOUND).build();
+//            }
+//            existingPlayer.setName(playerData.getName());
+//            existingPlayer.setJerseyNumber(playerData.getJerseyNumber());
+//            playersDAO.update(existingPlayer);
+//            return Response.ok().build();
+//        } catch (OptimisticLockException ole) {
+//            return Response.status(Response.Status.CONFLICT).build();
+//        }
+
+ //   }
 
     @Path("/{id}")
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response update(
-            @PathParam("id") final Integer playerId,
-            PlayerDto playerData) {
-        try {
-            Player existingPlayer = playersDAO.findOne(playerId);
-            if (existingPlayer == null) {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
-            existingPlayer.setName(playerData.getName());
-            existingPlayer.setJerseyNumber(playerData.getJerseyNumber());
-            playersDAO.update(existingPlayer);
-            return Response.ok().build();
-        } catch (OptimisticLockException ole) {
-            return Response.status(Response.Status.CONFLICT).build();
+    public Response update(@PathParam("id") final Integer id,
+                           String name,
+                           Integer jerseyNumber) {
+        Player existingPlayer = playersDAO.findOne(id);
+        if (existingPlayer == null) {
+            throw new IllegalArgumentException("user id "
+                    + id + " not found");
         }
+        existingPlayer.setName(name);
+        existingPlayer.setJerseyNumber(jerseyNumber);
+        playersDAO.update(existingPlayer);
+        return Response.ok(existingPlayer).build();
     }
+
+    @Path("/create")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Player create(String name,Integer jerseyNumber) {
+        Player player = new Player();
+        player.setName(name);
+        player.setJerseyNumber(jerseyNumber);
+        playersDAO.persist(player);
+        return player;
+    }
+
 }
