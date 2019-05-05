@@ -14,5 +14,7 @@ public class PlayerDto {
 
     private Integer TeamId;
 
+    private String level;
+
 
 }

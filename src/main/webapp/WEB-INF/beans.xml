@@ -12,4 +12,7 @@
     <decorators>
         <class>vu.lt.Decorators.GameDecorator</class>
     </decorators>
+    <alternatives>
+        <class>vu.lt.alternatives.BeginnerLevel</class>
+    </alternatives>
 </beans>

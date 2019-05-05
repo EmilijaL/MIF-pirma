@@ -11,7 +11,7 @@
     <ol>
         <ui:repeat value="#{playersForTeam.team.players}" var="player">
             <li>
-                <h:link value="#{player.name} #{player.jerseyNumber}" outcome="playerDetails?playerId=#{player.id}" />
+                <h:link value="#{player.name} #{player.jerseyNumber} #{player.level}" outcome="playerDetails?playerId=#{player.id}" />
             </li>
         </ui:repeat>
     </ol>
