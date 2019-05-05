@@ -12,5 +12,7 @@ public class PlayerDto {
 
     private String TeamName;
 
+    private Integer TeamId;
+
 
 }

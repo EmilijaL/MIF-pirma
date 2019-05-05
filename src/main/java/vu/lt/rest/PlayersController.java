@@ -2,7 +2,9 @@ package vu.lt.rest;
 
 import lombok.*;
 import vu.lt.entities.Player;
+import vu.lt.entities.Team;
 import vu.lt.persistence.PlayersDAO;
+import vu.lt.persistence.TeamsDAO;
 import vu.lt.rest.contracts.PlayerDto;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,6 +24,12 @@ public class PlayersController {
     @Inject
     @Setter @Getter
     private PlayersDAO playersDAO;
+
+    @Inject
+    @Setter @Getter
+    private TeamsDAO teamsDAO;
+
+
 
     @GET
     public List<Player> getAll() {
@@ -66,30 +74,19 @@ public class PlayersController {
 
     }
 
-//    @Path("/{id}")
-//    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Transactional
-//    public Response update(@PathParam("id") final Integer id,
-//                           String name) {
-//        Player existingPlayer = playersDAO.findOne(id);
-//        if (existingPlayer == null) {
-//            throw new IllegalArgumentException("user id "
-//                    + id + " not found");
-//        }
-//        existingPlayer.setName(name);
-//        playersDAO.update(existingPlayer);
-//        return Response.ok(existingPlayer).build();
-//    }
-
     @Path("/create")
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Player create(String name) {
+    public Player create(PlayerDto playerData) {
         Player player = new Player();
-        player.setName(name);
+        player.setName(playerData.getName());
+        player.setJerseyNumber(playerData.getJerseyNumber());
+        Team existingTeam = teamsDAO.findOne(playerData.getTeamId());
+        if (existingTeam != null) {
+            player.setTeam(existingTeam);
+        }
         playersDAO.persist(player);
         return player;
     }
