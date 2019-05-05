@@ -13,6 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @ApplicationScoped
 @Path("/players")
@@ -21,6 +22,11 @@ public class PlayersController {
     @Inject
     @Setter @Getter
     private PlayersDAO playersDAO;
+
+    @GET
+    public List<Player> getAll() {
+        return playersDAO.loadAll();
+    }
 
     @Path("/{id}")
     @GET
@@ -38,54 +44,52 @@ public class PlayersController {
 
         return Response.ok(playerDto).build();
     }
-//    @Path("/{id}")
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Transactional
-//    public Response update(
-//            @PathParam("id") final Integer playerId,
-//            PlayerDto playerData) {
-//        try {
-//            Player existingPlayer = playersDAO.findOne(playerId);
-//            if (existingPlayer == null) {
-//                return Response.status(Response.Status.NOT_FOUND).build();
-//            }
-//            existingPlayer.setName(playerData.getName());
-//            existingPlayer.setJerseyNumber(playerData.getJerseyNumber());
-//            playersDAO.update(existingPlayer);
-//            return Response.ok().build();
-//        } catch (OptimisticLockException ole) {
-//            return Response.status(Response.Status.CONFLICT).build();
-//        }
-
- //   }
-
     @Path("/{id}")
     @PUT
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response update(@PathParam("id") final Integer id,
-                           String name,
-                           Integer jerseyNumber) {
-        Player existingPlayer = playersDAO.findOne(id);
-        if (existingPlayer == null) {
-            throw new IllegalArgumentException("user id "
-                    + id + " not found");
+    public Response update(
+            @PathParam("id") final Integer playerId,
+            PlayerDto playerData) {
+        try {
+            Player existingPlayer = playersDAO.findOne(playerId);
+            if (existingPlayer == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            existingPlayer.setName(playerData.getName());
+            existingPlayer.setJerseyNumber(playerData.getJerseyNumber());
+            playersDAO.update(existingPlayer);
+            return Response.ok().build();
+        } catch (OptimisticLockException ole) {
+            return Response.status(Response.Status.CONFLICT).build();
         }
-        existingPlayer.setName(name);
-        existingPlayer.setJerseyNumber(jerseyNumber);
-        playersDAO.update(existingPlayer);
-        return Response.ok(existingPlayer).build();
+
     }
+
+//    @Path("/{id}")
+//    @PUT
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Transactional
+//    public Response update(@PathParam("id") final Integer id,
+//                           String name) {
+//        Player existingPlayer = playersDAO.findOne(id);
+//        if (existingPlayer == null) {
+//            throw new IllegalArgumentException("user id "
+//                    + id + " not found");
+//        }
+//        existingPlayer.setName(name);
+//        playersDAO.update(existingPlayer);
+//        return Response.ok(existingPlayer).build();
+//    }
 
     @Path("/create")
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Player create(String name,Integer jerseyNumber) {
+    public Player create(String name) {
         Player player = new Player();
         player.setName(name);
-        player.setJerseyNumber(jerseyNumber);
         playersDAO.persist(player);
         return player;
     }

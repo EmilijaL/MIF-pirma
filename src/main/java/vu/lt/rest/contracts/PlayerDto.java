@@ -12,6 +12,5 @@ public class PlayerDto {
 
     private String TeamName;
 
-    private String Level;
 
 }
