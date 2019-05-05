@@ -13,9 +13,9 @@ import java.util.List;
 
 @Model
 public class Games {
+
     @Inject
     private GamesDAO gamesDAO;
-
     @Getter @Setter
     private Game gameToCreate = new Game();
 
@@ -36,4 +36,5 @@ public class Games {
     private void loadAllGames() {
         allGames = gamesDAO.loadAll();
     }
+
 }

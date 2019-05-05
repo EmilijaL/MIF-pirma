@@ -8,15 +8,16 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @ApplicationScoped
-public class GamesDAO {
+public class GamesDAO implements IGamesDAO{
     @Inject
     private EntityManager em;
 
+    @Override
     public List<Game> loadAll() {
         return em.createNamedQuery("Game.findAll", Game.class).getResultList();
     }
 
-
+    @Override
     public void persist(Game game) {
         em.persist(game);
     }
