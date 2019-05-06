@@ -13,6 +13,7 @@ public class PlayersDAO {
 
     @Inject
     private EntityManager em;
+
     @Inject
     private ILevel level;
 

@@ -49,6 +49,8 @@ public class PlayersController {
         playerDto.setName(player.getName());
         playerDto.setJerseyNumber(player.getJerseyNumber());
         playerDto.setTeamName(player.getTeam().getName());
+        playerDto.setLevel(player.getLevel());
+        playerDto.setTeamId(player.getTeam().getId());
 
         return Response.ok(playerDto).build();
     }
